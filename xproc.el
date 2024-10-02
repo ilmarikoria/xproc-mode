@@ -23,8 +23,20 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun print-hello-world ()
+(defun xproc-add-step-boilerplate ()
+  "Insert XProc v3 step boilerplate"
   (interactive)
-  (message "你好世界"))
+  (insert "<p:declare-step xmlns:p=\"http://www.w3.org/ns/xproc\"
+                version=\"3.0\"\n")
+  (let ((p (point)))
+  (insert "</p:declare-step>\n")
+  (goto-char p)))
+
+(define-derived-mode xproc-mode nxml-mode "xproc"
+  "minor mode for creating XProc pipelines."
+  (setq auto-mode-alist
+        (append
+         '(("\\.xpl\\'" . xproc-mode))
+         auto-mode-alist)))
 
 ;;; xproc.el ends here
