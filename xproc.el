@@ -24,13 +24,41 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun xproc-add-step-boilerplate ()
-  "Insert XProc v3 step boilerplate"
+  "Insert XProc v3 step boilerplate at point"
   (interactive)
   (insert "<p:declare-step xmlns:p=\"http://www.w3.org/ns/xproc\"
                 version=\"3.0\"\n")
   (let ((p (point)))
   (insert "</p:declare-step>\n")
   (goto-char p)))
+
+(defun xproc-insert-input-port (input-port)
+  "Insert primary input port at point"
+  (interactive "sEnter port name: ")
+  (insert 
+   (format "\n<p:input port=\"%s\" primary=\"true\"/>\n"
+           input-port)))
+
+(defun xproc-insert-output-port (output-port)
+  "Insert primary output port at point"
+  (interactive "sEnter port name: ")
+  (insert 
+   (format "\n<p:output port=\"%s\" primary=\"true\"/>\n"
+           output-port)))
+
+(defun xproc-insert-primary-in-out-ports ()
+  "Insert primary input and output port at point"
+  (interactive)
+  (insert  "\n<p:input port=\"source\" primary=\"true\"/>\n
+              <p:output port=\"result\" primary=\"true\"/>\n"))
+
+(defun xproc-add-step (step)
+  "Insert step at point"
+  (interactive "sEnter step type: ")
+  (insert (format "\n<p:%s>\n" step))
+  (let ((p (point)))
+    (insert (format "\n</p:%s>\n" step))
+    (goto-char p)))
 
 (define-derived-mode xproc-mode nxml-mode "xproc"
   "minor mode for creating XProc pipelines."
