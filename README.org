@@ -3,3 +3,5 @@
 * About
 GNU Emacs minor mode for creating XProc pipelines. Based on nxml-mode
 and xslide.
+
+Note: This is all wip :o).
