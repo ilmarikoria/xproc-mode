@@ -1,0 +1,5 @@
+#+TITLE: xproc-mode.el
+
+* About
+GNU Emacs minor mode for creating XProc pipelines. Based on nxml-mode
+and xslide.
