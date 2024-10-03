@@ -1,7 +1,7 @@
-;;;; xproc.el --- GNU Emacs minor mode for creating XProc pipelines
+;;;; xproc.el --- major mode for creating XProc pipelines
 ;; Copyright (C) 2024 Ilmari Koria
 
-;; Author: Ilmari Koria
+;; Contributor(s): Ilmari Koria
 ;; Created: 02 Oct 2024
 ;; Keywords: xml, pipelines, xsl, publishing
 
@@ -23,6 +23,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; boilerplate stuff
 (defun xproc-add-step-boilerplate ()
   "Insert XProc v3 step boilerplate at point"
   (interactive)
@@ -61,10 +62,13 @@
     (goto-char p)))
 
 (define-derived-mode xproc-mode nxml-mode "xproc"
-  "minor mode for creating XProc pipelines."
+  "major mode for creating XProc pipelines."
   (setq auto-mode-alist
         (append
          '(("\\.xpl\\'" . xproc-mode))
-         auto-mode-alist)))
+         auto-mode-alist))
+  (setq imenu-create-index-function 'xproc-imenu-create-index-function)
+  (setq imenu-extract-index-name-function 'xproc-imenu-create-index-function)
+  (imenu-add-to-menubar "XProc/Steps"))
 
 ;;; xproc.el ends here
